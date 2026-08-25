@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "OperationalException": {
+      "title": "OperationalException",
+      "description": "Executed executive operational exception and resource dispatch decision",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the decision record"
+        },
+        "industry": {
+          "type": "string",
+          "description": "Industry domain of the operational scenario",
+          "maxLength": 100
+        },
+        "priority": {
+          "type": "string",
+          "description": "Priority level: Normal, Urgencia Alta, Crítica / Cliente VIP",
+          "maxLength": 50
+        },
+        "scenario": {
+          "type": "string",
+          "description": "Description of the operational incident or exception",
+          "maxLength": 2000
+        },
+        "sla_feasibility": {
+          "type": "number",
+          "description": "Percentage SLA fulfillment feasibility (0-100)"
+        },
+        "estimated_cost": {
+          "type": "string",
+          "description": "Estimated financial impact / additional cost",
+          "maxLength": 100
+        },
+        "risk_status": {
+          "type": "string",
+          "description": "Preserved margin or mitigated risk indicator",
+          "maxLength": 100
+        },
+        "action_steps": {
+          "type": "array",
+          "description": "Step-by-step immediate operational execution plan"
+        },
+        "executive_rationale": {
+          "type": "string",
+          "description": "Strategic COO reasoning and trade-offs avoided",
+          "maxLength": 3000
+        },
+        "system_payload": {
+          "type": "object",
+          "description": "Simulated structured dispatch payload for ERP / WMS"
+        },
+        "status": {
+          "type": "string",
+          "description": "Execution status (e.g. Ejecutado, Aprobado en ERP)",
+          "maxLength": 50
+        },
+        "dispatchedAt": {
+          "type": "string",
+          "description": "ISO timestamp of execution or creation"
+        },
+        "approver": {
+          "type": "string",
+          "description": "Operator or executive ID/role approving the dispatch",
+          "maxLength": 100
+        }
+      },
+      "required": ["industry", "priority", "scenario", "sla_feasibility", "estimated_cost", "status", "dispatchedAt"]
+    }
+  },
+  "firestore": {
+    "/operational_exceptions/{exceptionId}": {
+      "schema": "OperationalException",
+      "description": "Collection of operational exceptions resolved and dispatched"
+    }
+  }
+}

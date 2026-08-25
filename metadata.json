@@ -1,0 +1,6 @@
+{
+  "name": "OpsCommand AI - Executive Exception & Resource Dispatcher",
+  "description": "Centro de Decisión y Despacho Operativo impulsado por Gemini 3.7 Flash y Firebase Firestore para resolución ejecutiva de contingencias operativas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

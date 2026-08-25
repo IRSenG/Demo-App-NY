@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidExceptionPayload(data) {
+      return data.industry is string && data.industry.size() <= 100
+        && data.priority is string && data.priority.size() <= 50
+        && data.scenario is string && data.scenario.size() <= 2500
+        && data.sla_feasibility is number && data.sla_feasibility >= 0 && data.sla_feasibility <= 100
+        && data.estimated_cost is string && data.estimated_cost.size() <= 100
+        && data.risk_status is string && data.risk_status.size() <= 100
+        && data.status is string && data.status.size() <= 50
+        && data.dispatchedAt is string && data.dispatchedAt.size() <= 100;
+    }
+
+    match /operational_exceptions/{exceptionId} {
+      allow read: if true;
+      allow create: if isValidId(exceptionId) && isValidExceptionPayload(request.resource.data);
+      allow update, delete: if false;
+    }
+  }
+}
